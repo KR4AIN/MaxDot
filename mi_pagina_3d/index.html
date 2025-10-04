@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Zona 3D - Juegos</title>
+  <style>
+    body {margin:0;background:#000;color:#fff;font-family: 'Arial Black', Impact, sans-serif;text-align:center;}
+    header {padding:40px;font-size:3rem;letter-spacing:4px;text-transform:uppercase;color:#fff;text-shadow:0 0 20px #0ef,0 0 40px #0ef;}
+    section {padding:40px;}
+    canvas {display:block;margin:0 auto;}
+    .game-title {margin:20px 0;font-size:1.5rem;color:#0ef;}
+  </style>
+</head>
+<body>
+  <header>Zona 3D</header>
+  <section>
+    <h2 class="game-title">Juego 1: Cubo 3D</h2>
+    <canvas id="cubo"></canvas>
+  </section>
+  <footer>
+    <p>© <script>document.write(new Date().getFullYear())</script> Zona 3D | Soporte en línea</p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const canvas=document.getElementById('cubo');
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+    renderer.setSize(400,300);
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(75,400/300,0.1,1000);
+    const geometry=new THREE.BoxGeometry();
+    const material=new THREE.MeshStandardMaterial({color:0x0ef});
+    const cube=new THREE.Mesh(geometry,material);
+    scene.add(cube);
+    const light=new THREE.PointLight(0xffffff,1);
+    light.position.set(5,5,5);
+    scene.add(light);
+    camera.position.z=3;
+    function animate(){requestAnimationFrame(animate);cube.rotation.x+=0.01;cube.rotation.y+=0.01;renderer.render(scene,camera);}animate();
+  </script>
+</body>
+</html>
